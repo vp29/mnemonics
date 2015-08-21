@@ -67,7 +67,7 @@ def find_matching_names(char1, char2, names):
 #entry_parse = re.compile(".*<ent>(?P<word>[a-zA-Z]+?)</ent>.*<pos>(?P<pos>.*?)</pos>.*")
     
 #dir = ""
-file = open("adverbs.txt")
+#file = open("adverbs.txt")
 initials = open("initials.txt")
 word_list = open("words.txt", "a+")
 
