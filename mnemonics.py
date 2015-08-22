@@ -160,7 +160,8 @@ for i, char in enumerate(str_iter):
         #noun
         next_state = ["IVB", "TVB", "CC", "RB"]   
         if had_verb == True:
-            sentence += ", " + connectors[int(index*len(connectors))%len(connectors)] + " "
+            if i != len(test_str)-1:
+                sentence += ", " + connectors[int(index*len(connectors))%len(connectors)] + " "
             next_state = ["NNS", "PN", "NN"]
             #next_state = ["CC"]
             had_verb = False
