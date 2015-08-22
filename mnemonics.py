@@ -44,25 +44,6 @@ def find_matching_names(char1, char2, names):
             matches.append(name)
     
     return matches
-    
-'''def check_pos(pos):
-    pos_arr = []
-    if "n." in pos_string and not "pron." in pos_string:
-        pos_arr.append("n.")
-    if "a." in pos_string or "adj." in pos_string:
-        pos_arr.append("adj.")
-    if "adv." in pos_string:
-        pos_arr.append("adv.")
-    if "pron." in pos_string:
-        pos_arr.append("pron.")
-    if "v." in pos_string and not "adv." in pos_string:
-        pos_arr.append("v.")
-    if "prep." in pos_string:
-        pos_arr.append("prep.")
-    if "conj." in pos_string:
-        pos_arr.append("conj.")
-    
-    return pos_arr'''
         
 #entry_parse = re.compile(".*<ent>(?P<word>[a-zA-Z]+?)</ent>.*<pos>(?P<pos>.*?)</pos>.*")
     
@@ -110,9 +91,6 @@ if reading:
             
         sys.stdout.write( str(int(float(cur_line)/float(num_lines) * 100)) + "% read\r")
         cur_line += 1
-        #word_spl = line.split(" ")
-        #word_spl = [g.replace("\"", "").replace(".", "").replace("!","").replace("\n", "") for g in word_spl]
-        #print word_spl
 
         
     for word in words:
@@ -120,48 +98,18 @@ if reading:
 else:
     words = read_word_list(word_list)
 
-#Add articles
-#words.append(Word("A", "det."))
-#words.append(Word("An", "det."))
-#words.append(Word("The", "det."))
-
-'''alpha = "abcdefghijklmnopqrstuvwxyz"
-for char in alpha:
-    entries = []
-    dict = open(dir + "gcide_" + char + ".xml")
-
-    #print "parsing " + char + " words"
-    found_word = False
-    entry = ""
-
-    for line in dict:
-        if line.startswith("<p><ent>"):
-            entry = line
-            found_word = True
-        elif found_word:
-            entry += line
-        if "</p>" in line and found_word:
-            found_word = False
-            entries.append(entry.replace("\n",""))
-     
-    for entry in entries:
-        m = entry_parse.search(entry)
-        if m != None:
-            pos_string = m.group("pos")
-            pos = check_pos(pos_string)
-            word = Word(m.group("word"), pos)
-            words.append(word)
+#For Testing
 '''
-#print words[1].word
-#print words[1].pos
-
 alpha = "abcdefghijklmnopqrstuvwxyz"
-str = ""
+test_str = ""
 for i in range(0,12):
     index = random.random()
-    str += alpha[int(index*len(alpha))%len(alpha)]
-str = "testing"
-str_iter = iter(str)
+    test_str += alpha[int(index*len(alpha))%len(alpha)]
+'''
+
+
+test_str = "ecrb"
+str_iter = iter(test_str)
 
 #Noun, adverb, pronoun, adj, verb, adverb, preposition, conjunction, article
 connectors = ["and", "but", "then", "after", "when"]
@@ -174,8 +122,7 @@ had_verb = False
 
 for i, char in enumerate(str_iter):
     index = random.random()
-    
-    #print state
+
     #there can be cases where we chose a next state that doesn't have any possible words. 
     #ex: preposition starting with g
     found_word = False
@@ -188,8 +135,8 @@ for i, char in enumerate(str_iter):
                     had_verb = False
                 sentence += word + " "
             else:
-                if str[i+1] != None:
-                    match_names = find_matching_names(char, str[i+1], names)
+                if test_str[i+1] != None:
+                    match_names = find_matching_names(char, test_str[i+1], names)
                 else:
                     match_names = find_matching_names(char, "", names)
                 name = match_names[int(index*len(match_names))%len(match_names)]
